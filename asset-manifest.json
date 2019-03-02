@@ -1,13 +1,13 @@
 {
-  "main.css": "/static/css/main.65c61f66.chunk.css",
-  "main.js": "/static/js/main.6bb183de.chunk.js",
-  "main.js.map": "/static/js/main.6bb183de.chunk.js.map",
-  "runtime~main.js": "/static/js/runtime~main.fdfcfda2.js",
-  "runtime~main.js.map": "/static/js/runtime~main.fdfcfda2.js.map",
-  "static/js/2.c88c70e5.chunk.js": "/static/js/2.c88c70e5.chunk.js",
-  "static/js/2.c88c70e5.chunk.js.map": "/static/js/2.c88c70e5.chunk.js.map",
-  "index.html": "/index.html",
-  "precache-manifest.3d9b852a999174e1d8988968ceff584e.js": "/precache-manifest.3d9b852a999174e1d8988968ceff584e.js",
-  "service-worker.js": "/service-worker.js",
-  "static/css/main.65c61f66.chunk.css.map": "/static/css/main.65c61f66.chunk.css.map"
+  "main.css": "/music-to-note/static/css/main.65c61f66.chunk.css",
+  "main.js": "/music-to-note/static/js/main.ed78b1bb.chunk.js",
+  "main.js.map": "/music-to-note/static/js/main.ed78b1bb.chunk.js.map",
+  "runtime~main.js": "/music-to-note/static/js/runtime~main.a1698686.js",
+  "runtime~main.js.map": "/music-to-note/static/js/runtime~main.a1698686.js.map",
+  "static/js/2.c88c70e5.chunk.js": "/music-to-note/static/js/2.c88c70e5.chunk.js",
+  "static/js/2.c88c70e5.chunk.js.map": "/music-to-note/static/js/2.c88c70e5.chunk.js.map",
+  "index.html": "/music-to-note/index.html",
+  "precache-manifest.dc8ee68bcf6cfcf80391844219c3b435.js": "/music-to-note/precache-manifest.dc8ee68bcf6cfcf80391844219c3b435.js",
+  "service-worker.js": "/music-to-note/service-worker.js",
+  "static/css/main.65c61f66.chunk.css.map": "/music-to-note/static/css/main.65c61f66.chunk.css.map"
 }
