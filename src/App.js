@@ -4,6 +4,7 @@ import UploadAudio from './components/upload_audio';
 import SheetMusicDisplay from './components/sheet_music_display';
 import { Typography } from '@material-ui/core';
 import * as firebase from 'firebase';
+import { stat } from 'fs';
 
 var config = {
     apiKey: "AIzaSyDk8JlKOhj0xAc8HM5Q9gDwvybpQta90D4",
@@ -58,7 +59,7 @@ function get_note(frequency){
 
 class App extends Component {
     state = {
-        music: []
+        music: ['|']
     };
 
     componentDidMount(){
@@ -66,6 +67,9 @@ class App extends Component {
         noteRef.on('value', snap => {
             this.setState( state => {
                 state.music.push( get_note(snap.val()*100) )
+                if(state.music.length > 20){
+                    state.music.shift();
+                }
                 return {
                     music: state.music
                 }
