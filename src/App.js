@@ -104,11 +104,18 @@ class App extends Component {
         this.setState({
             music: arr,
             title: title,
-        });
+        }, () => this.forceUpdate());
     }
 
     convertToPdf = () => {
         window.print()
+    }
+
+    restartSheet = () => {
+        this.setState({
+            music: ['|'],
+            title: '',
+        }, () => this.forceUpdate());
     }
 
     render() {
@@ -117,7 +124,7 @@ class App extends Component {
                 <Typography variant="h2">
                     Music 2 Note
                 </Typography>
-                <UploadAudio uploadCallback={this.update} editTitle={this.editTitle} convertToPdf={this.convertToPdf}/>
+                <UploadAudio uploadCallback={this.update} editTitle={this.editTitle} convertToPdf={this.convertToPdf} restartSheet={this.restartSheet}/>
                 <SheetMusicDisplay tune={this.state.music}/>
             </div>
         );

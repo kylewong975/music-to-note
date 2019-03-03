@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import swal from 'sweetalert';
 import {IconButton, Card, LinearProgress} from '@material-ui/core';
 import Audiotrack from '@material-ui/icons/Audiotrack';
-import CloudUpload from '@material-ui/icons/CloudUpload';
+import CloudDownload from '@material-ui/icons/CloudDownload';
 import Edit from '@material-ui/icons/Edit';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import Pause from '@material-ui/icons/Pause';
-import Stop from '@material-ui/icons/Stop';
+import Refresh from '@material-ui/icons/Refresh';
 import Tooltip from '@material-ui/core/Tooltip';
 import './styles/upload_audio.css';
 
@@ -20,7 +20,6 @@ let server_endpoint = 'http://httprelay.io/link/h53f';
 
 export class UploadAudio extends Component {
     state = {
-        title: 'No Title',
         isStart: true,
     };
 
@@ -49,17 +48,50 @@ export class UploadAudio extends Component {
         this.props.uploadCallback(params);
     }
 
-    stop = () => {
-        this.props.convertToPdf();
+    cloudDownload = () => {
+      swal({
+          buttons: {
+              cancel: {
+                  text: 'No',
+                  visible: true,
+              },
+              confirm: {
+                  text: 'Yes',
+                  visible: true,
+              },
+          },
+          text: 'Are you sure you want to download PDF?',
+      }).then(confirmDownload => {
+          if(confirmDownload) {
+              this.props.convertToPdf();
+          }
+      });
+    }
+
+    restartSheet = () => {
+        swal({
+            buttons: {
+                cancel: {
+                    text: 'No',
+                    visible: true,
+                },
+                confirm: {
+                    text: 'Yes',
+                    visible: true,
+                },
+            },
+            text: 'Are you sure you want to restart the music sheet?',
+        }).then(confirmRestart => {
+            if(confirmRestart) {
+                this.props.restartSheet();
+            }
+        });
     }
 
     editTitle = () => {
         swal({
             content: "input",
         }).then(title => {
-            this.setState({
-                title: title,
-            });
             this.props.editTitle(title);
         });
     }
@@ -95,9 +127,9 @@ export class UploadAudio extends Component {
                         </IconButton>
                     </Tooltip>
                 )}
-                <Tooltip title="Stop Recording">
-                    <IconButton style={buttonStyle} onClick={this.stop}>
-                        <Stop/>
+                <Tooltip title="Restart Music Sheet">
+                    <IconButton style={buttonStyle} onClick={this.restartSheet}>
+                        <Refresh/>
                     </IconButton>
                 </Tooltip>
                 <Tooltip title="Edit Title">
@@ -108,12 +140,11 @@ export class UploadAudio extends Component {
                 <IconButton style={buttonStyle} onClick={this.record}>
                     <Audiotrack/>
                 </IconButton>
-                <label>
-                    <IconButton style={buttonStyle} onClick={this.upload}>
-                        <CloudUpload/>
+                <Tooltip title="Download Music Sheet">
+                    <IconButton style={buttonStyle} onClick={this.cloudDownload}>
+                        <CloudDownload/>
                     </IconButton>
-                    <input type="file" id="upload-audio" onChange={this.readFile} />
-                </label>
+                </Tooltip>
             </Card>
         )
     }
