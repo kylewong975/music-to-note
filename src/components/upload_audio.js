@@ -7,6 +7,7 @@ import Edit from '@material-ui/icons/Edit';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import Pause from '@material-ui/icons/Pause';
 import Stop from '@material-ui/icons/Stop';
+import Tooltip from '@material-ui/core/Tooltip';
 import './styles/upload_audio.css';
 
 let buttonStyle = {
@@ -20,6 +21,7 @@ let server_endpoint = 'http://httprelay.io/link/h53f';
 export class UploadAudio extends Component {
     state = {
         title: 'No Title',
+        isStart: true,
     };
 
     readFile = () => {
@@ -28,11 +30,15 @@ export class UploadAudio extends Component {
     }
 
     start = () => {
-
+        this.setState({
+            isStart: false,
+        })
     }
 
     pause = () => {
-
+        this.setState({
+            isStart: true,
+        });
     }
 
     stop = () => {
@@ -67,18 +73,29 @@ export class UploadAudio extends Component {
     render() {
         return (
             <Card className="button-holder">
-                <IconButton style={buttonStyle} onClick={this.start}>
-                    <PlayArrow/>
-                </IconButton>
-                <IconButton style={buttonStyle} onClick={this.pause}>
-                    <Pause/>
-                </IconButton>
-                <IconButton style={buttonStyle} onClick={this.stop}>
-                    <Stop/>
-                </IconButton>
-                <IconButton style={buttonStyle} onClick={this.editTitle}>
-                    <Edit/>
-                </IconButton>
+                {this.state.isStart ? (
+                    <Tooltip title="Start Recording">
+                        <IconButton style={buttonStyle} onClick={this.start}>
+                            <PlayArrow/>
+                        </IconButton>
+                    </Tooltip>
+                ) : (
+                    <Tooltip title="Pause Recording">
+                        <IconButton style={buttonStyle} onClick={this.pause}>
+                            <Pause/>
+                        </IconButton>
+                    </Tooltip>
+                )}
+                <Tooltip title="Stop Recording">
+                    <IconButton style={buttonStyle} onClick={this.stop}>
+                        <Stop/>
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title="Edit Title">
+                    <IconButton style={buttonStyle} onClick={this.editTitle}>
+                        <Edit/>
+                    </IconButton>
+                </Tooltip>
                 <IconButton style={buttonStyle} onClick={this.record}>
                     <Audiotrack/>
                 </IconButton>
