@@ -108,15 +108,7 @@ class App extends Component {
     }
 
     convertToPdf = () => {
-        const input = document.getElementById('divToPrint');
-        html2canvas(input).then((canvas) => {
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF('p', 'mm', [2880, 1800]);
-            pdf.addImage(imgData, 'JPEG', 0, 0);
-            // pdf.output('dataurlnewwindow');
-            let filename = this.state.title ? this.state.title : 'notitle';
-            pdf.save(filename + ".pdf");
-        });
+        window.print()
     }
 
     restartSheet = () => {
