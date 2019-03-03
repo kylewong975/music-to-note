@@ -8,7 +8,7 @@ export class SheetMusicDisplay extends Component {
         responsive: 'resize',
     }
     componentDidUpdate(props){
-        abcjs.renderAbc("sheet", props.tune, this.options);
+        abcjs.renderAbc("sheet", props.tune.join(' '), this.options);
     }
     render() {
         return (

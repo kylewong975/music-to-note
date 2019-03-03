@@ -6,12 +6,12 @@ import { Typography } from '@material-ui/core';
 import * as firebase from 'firebase';
 
 var config = {
-apiKey: "AIzaSyDk8JlKOhj0xAc8HM5Q9gDwvybpQta90D4",
-authDomain: "hacktech2019-233403.firebaseapp.com",
-databaseURL: "https://hacktech2019-233403.firebaseio.com",
-projectId: "hacktech2019-233403",
-storageBucket: "hacktech2019-233403.appspot.com",
-messagingSenderId: "1080115241329"
+    apiKey: "AIzaSyDk8JlKOhj0xAc8HM5Q9gDwvybpQta90D4",
+    authDomain: "hacktech2019-233403.firebaseapp.com",
+    databaseURL: "https://hacktech2019-233403.firebaseio.com",
+    projectId: "hacktech2019-233403",
+    storageBucket: "hacktech2019-233403.appspot.com",
+    messagingSenderId: "1080115241329"
 };
 
 firebase.initializeApp(config);
@@ -54,33 +54,34 @@ function get_note(frequency){
         }
     }
 }
+// 'X:1\nT: Example\nM: 4/4\nL: 1/8\nR: reel\nK: C\nD2|:"Em"EB{c}BA B2 EB|~B2 AB dBAG'
 
 class App extends Component {
     state = {
-        music: 'X:1\nT: Example\nM: 4/4\nL: 1/8\nR: reel\nK: C\nD2|:"Em"EB{c}BA B2 EB|~B2 AB dBAG'
+        music: []
     };
 
     componentDidMount(){
         const noteRef = db.ref().child('note');
         noteRef.on('value', snap => {
-            this.setState( state => ({
-                music: state.music + get_note(snap.val()*100)
-            }));
-        });
+            this.setState( state => {
+                state.music.push( get_note(snap.val()*100) )
+                return {
+                    music: state.music
+                }
+            })});
     }
-    // update = (param) => {
-    //     this.setState({
-    //         music: param
-    //     });
-    // }
-    // uploadCallback={this.update}
+
+    update = (param) => {
+    }
+
     render() {
         return (
             <div className="app">
                 <Typography variant="h2">
                     Music 2 Note
                 </Typography>
-                <UploadAudio />
+                <UploadAudio uploadCallback={this.update}/>
                 <SheetMusicDisplay tune={this.state.music}/>
             </div>
         );
