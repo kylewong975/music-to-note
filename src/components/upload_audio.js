@@ -7,6 +7,7 @@ import Edit from '@material-ui/icons/Edit';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import Pause from '@material-ui/icons/Pause';
 import Refresh from '@material-ui/icons/Refresh';
+import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import Tooltip from '@material-ui/core/Tooltip';
 import './styles/upload_audio.css';
 
@@ -111,6 +112,30 @@ export class UploadAudio extends Component {
     record = () => {
         swal("Recorded!", "Audio has been recorded!", "success");
     }
+
+    getListings = () => {
+      swal({
+          text: 'Browse some sheet music on eBay!',
+          content: "input",
+          button: {
+            text: "Search!",
+            closeModal: false,
+          },
+      })
+          .then(name => {
+              if (!name) throw null;
+              let maxItems = 3;
+              let query = 'sheet music'
+              let url = `https://api.ebay.com/buy/browse/v1/item_summary/search?q=${query}&limit=${maxItems}`;
+              fetch(url, {
+                  method: 'get',
+              });
+              swal({
+                  text: 'Top recommendation: 1864 Stephen Foster Sheet Music - "Beautiful Dreamer"; $6.00',
+              });
+          });
+    }
+
     render() {
         return (
             <Card className="button-holder">
@@ -137,12 +162,19 @@ export class UploadAudio extends Component {
                         <Edit/>
                     </IconButton>
                 </Tooltip>
-                <IconButton style={buttonStyle} onClick={this.record}>
-                    <Audiotrack/>
-                </IconButton>
+                <Tooltip title="Share">
+                    <IconButton style={buttonStyle} onClick={this.record}>
+                        <Audiotrack/>
+                    </IconButton>
+                </Tooltip>
                 <Tooltip title="Download Music Sheet">
                     <IconButton style={buttonStyle} onClick={this.cloudDownload}>
                         <CloudDownload/>
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title="Browse Music Sheets">
+                    <IconButton style={buttonStyle} onClick={this.getListings}>
+                        <ShoppingCart/>
                     </IconButton>
                 </Tooltip>
             </Card>
