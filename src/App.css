@@ -1,5 +1,9 @@
 .app{
-    padding-top: 10vh;
+    box-sizing: border-box;
+    padding: 10vh 10vw 0 10vw;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 h2{
     text-align: center;
