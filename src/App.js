@@ -61,8 +61,10 @@ function get_note(frequency){
 
 class App extends Component {
     state = {
-        music: ['|'],
+        music: ['M:4\/4\n|'],
         shouldPullFromFirebase: false,
+        counter: 0,
+        measureCounter: 0,
         title: '',
     };
 
@@ -72,11 +74,16 @@ class App extends Component {
             if(this.state.shouldPullFromFirebase) {
                 this.setState( state => {
                     state.music.push( get_note(snap.val()*100) )
-                    if(state.music.length > 20){
-                        state.music.shift();
+                    if(state.measureCounter > 6) {
+                        state.music.push('|');
+                    }
+                    if(state.counter > 14){
+                        state.music.push('\n|');
                     }
                     return {
-                        music: state.music
+                        music: state.music,
+                        counter: state.counter > 14 ? 0 : state.counter + 1,
+                        measureCounter: state.measureCounter > 6 ? 0 : state.measureCounter + 1,
                     }
                 })
             }
