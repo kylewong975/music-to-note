@@ -32,13 +32,21 @@ export class UploadAudio extends Component {
     start = () => {
         this.setState({
             isStart: false,
-        })
+        });
+        let params = {
+            shouldPullFromFirebase: true,
+        };
+        this.props.uploadCallback(params);
     }
 
     pause = () => {
         this.setState({
             isStart: true,
         });
+        let params = {
+            shouldPullFromFirebase: false,
+        };
+        this.props.uploadCallback(params);
     }
 
     stop = () => {

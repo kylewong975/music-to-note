@@ -59,24 +59,31 @@ function get_note(frequency){
 
 class App extends Component {
     state = {
-        music: ['|']
+        music: ['|'],
+        shouldPullFromFirebase: false,
     };
 
     componentDidMount(){
         const noteRef = db.ref().child('note');
         noteRef.on('value', snap => {
-            this.setState( state => {
-                state.music.push( get_note(snap.val()*100) )
-                if(state.music.length > 20){
-                    state.music.shift();
-                }
-                return {
-                    music: state.music
-                }
-            })});
+            if(this.state.shouldPullFromFirebase) {
+                this.setState( state => {
+                    state.music.push( get_note(snap.val()*100) )
+                    if(state.music.length > 20){
+                        state.music.shift();
+                    }
+                    return {
+                        music: state.music
+                    }
+                })
+            }
+        });
     }
 
     update = (param) => {
+        this.setState({
+            shouldPullFromFirebase: param.shouldPullFromFirebase,
+        });
     }
 
     render() {
