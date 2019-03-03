@@ -50,7 +50,7 @@ export class UploadAudio extends Component {
     }
 
     stop = () => {
-
+        this.props.convertToPdf();
     }
 
     editTitle = () => {

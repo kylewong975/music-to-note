@@ -5,6 +5,8 @@ import SheetMusicDisplay from './components/sheet_music_display';
 import { Typography } from '@material-ui/core';
 import * as firebase from 'firebase';
 import { stat } from 'fs';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 var config = {
     apiKey: "AIzaSyDk8JlKOhj0xAc8HM5Q9gDwvybpQta90D4",
@@ -61,6 +63,7 @@ class App extends Component {
     state = {
         music: ['|'],
         shouldPullFromFirebase: false,
+        title: '',
     };
 
     componentDidMount(){
@@ -100,16 +103,43 @@ class App extends Component {
         arr.unshift(tmp);
         this.setState({
             music: arr,
+            title: title,
         });
     }
 
+    convertToPdf = () => {
+        const input = document.getElementById('divToPrint');
+        html2canvas(input).then((canvas) => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF('p', 'mm', [2880, 1800]);
+            pdf.addImage(imgData, 'JPEG', 0, 0);
+            // pdf.output('dataurlnewwindow');
+            let filename = this.state.title ? this.state.title : 'notitle';
+            pdf.save(filename + ".pdf");
+        });
+    }
+    /*
+    printDocument() {
+  const input = document.getElementById('divToPrint');
+  html2canvas(input)
+    .then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF();
+      pdf.addImage(imgData, 'JPEG', 0, 0);
+      // pdf.output('dataurlnewwindow');
+      pdf.save("download.pdf");
+    })
+  ;
+}
+    */
+
     render() {
         return (
-            <div className="app">
+            <div className="app" id="divToPrint">
                 <Typography variant="h2">
                     Music 2 Note
                 </Typography>
-                <UploadAudio uploadCallback={this.update} editTitle={this.editTitle}/>
+                <UploadAudio uploadCallback={this.update} editTitle={this.editTitle} convertToPdf={this.convertToPdf}/>
                 <SheetMusicDisplay tune={this.state.music}/>
             </div>
         );
