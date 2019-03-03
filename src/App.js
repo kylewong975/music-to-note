@@ -86,13 +86,30 @@ class App extends Component {
         });
     }
 
+    editTitle = (title) => {
+        let arr = this.state.music;
+        let tmp = arr[0];
+        if(tmp.includes('T:')) {
+            let regex = /T:.*\n/g;
+            tmp = tmp.replace(regex, 'T: ' + title + '\n');
+        }
+        else {
+            tmp = 'T: ' + title + '\n' + tmp;
+        }
+        arr = arr.slice(1)
+        arr.unshift(tmp);
+        this.setState({
+            music: arr,
+        });
+    }
+
     render() {
         return (
             <div className="app">
                 <Typography variant="h2">
                     Music 2 Note
                 </Typography>
-                <UploadAudio uploadCallback={this.update}/>
+                <UploadAudio uploadCallback={this.update} editTitle={this.editTitle}/>
                 <SheetMusicDisplay tune={this.state.music}/>
             </div>
         );

@@ -60,6 +60,7 @@ export class UploadAudio extends Component {
             this.setState({
                 title: title,
             });
+            this.props.editTitle(title);
         });
     }
 
