@@ -61,7 +61,7 @@ function get_note(frequency){
 
 class App extends Component {
     state = {
-        music: ['M:4\/4\n|'],
+        music: ['M:4\/4\nK:Fmaj\n|'],
         shouldPullFromFirebase: false,
         counter: 0,
         measureCounter: 0,
