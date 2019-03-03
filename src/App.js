@@ -104,7 +104,7 @@ class App extends Component {
         this.setState({
             music: arr,
             title: title,
-        });
+        }, () => this.forceUpdate());
     }
 
     convertToPdf = () => {
@@ -118,20 +118,13 @@ class App extends Component {
             pdf.save(filename + ".pdf");
         });
     }
-    /*
-    printDocument() {
-  const input = document.getElementById('divToPrint');
-  html2canvas(input)
-    .then((canvas) => {
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF();
-      pdf.addImage(imgData, 'JPEG', 0, 0);
-      // pdf.output('dataurlnewwindow');
-      pdf.save("download.pdf");
-    })
-  ;
-}
-    */
+
+    restartSheet = () => {
+        this.setState({
+            music: ['|'],
+            title: '',
+        }, () => this.forceUpdate());
+    }
 
     render() {
         return (
@@ -139,7 +132,7 @@ class App extends Component {
                 <Typography variant="h2">
                     Music 2 Note
                 </Typography>
-                <UploadAudio uploadCallback={this.update} editTitle={this.editTitle} convertToPdf={this.convertToPdf}/>
+                <UploadAudio uploadCallback={this.update} editTitle={this.editTitle} convertToPdf={this.convertToPdf} restartSheet={this.restartSheet}/>
                 <SheetMusicDisplay tune={this.state.music}/>
             </div>
         );
