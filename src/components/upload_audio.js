@@ -146,9 +146,11 @@ export class UploadAudio extends Component {
               fetch(url, {
                   method: 'get',
               });
-              swal({
-                  text: 'Top recommendation: 1864 Stephen Foster Sheet Music - "Beautiful Dreamer"; $6.00',
-              });
+              swal(
+                  '',
+                  'Top recommendation: 1864 Stephen Foster Sheet Music - "Beautiful Dreamer"; $6.00',
+                  "success"
+              );
           });
     }
 

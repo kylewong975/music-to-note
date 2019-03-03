@@ -120,7 +120,7 @@ class App extends Component {
 
     restartSheet = () => {
         this.setState({
-            music: ['|'],
+            music: ['M:4\/4\nK:Fmaj\n|'],
             title: '',
         }, () => this.forceUpdate());
     }
