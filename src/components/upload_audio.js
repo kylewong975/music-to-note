@@ -22,6 +22,7 @@ let server_endpoint = 'http://httprelay.io/link/h53f';
 export class UploadAudio extends Component {
     state = {
         isStart: true,
+        currTitle: '',
     };
 
     readFile = () => {
@@ -92,8 +93,23 @@ export class UploadAudio extends Component {
     editTitle = () => {
         swal({
             content: "input",
+            buttons: {
+                cancel: {
+                    text: 'Cancel',
+                    value: this.state.currTitle ? this.state.currTitle : '',
+                    visible: true,
+                },
+                confirm: {
+                    text: 'Save',
+                    visible: true,
+                },
+            },
+            text: 'Edit Music Sheet Title',
         }).then(title => {
             this.props.editTitle(title);
+            this.setState({
+                currTitle: title,
+            })
         });
     }
 
